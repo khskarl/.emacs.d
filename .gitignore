@@ -17,3 +17,5 @@ site-lisp/adventur-mode
 /.sx/
 /ensime/
 ac-comphist.dat
+\#*\#
+ido.last
