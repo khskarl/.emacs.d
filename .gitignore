@@ -19,3 +19,4 @@ site-lisp/adventur-mode
 ac-comphist.dat
 \#*\#
 ido.last
+.mc-lists.el

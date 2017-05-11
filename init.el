@@ -24,7 +24,9 @@
     racer 
     cider
     ac-cider
-    lispy))
+    lispy
+    multiple-cursors
+    magit))
 
 (mapc #'(lambda (package)
 	  (unless (package-installed-p package)
@@ -63,6 +65,12 @@
 (load-theme 'hc-zenburn t)
 
 (global-aggressive-indent-mode 1)
+
+(require 'multiple-cursors)
+(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 
 ;; SETUP PYTHON
 ;; ------------------------------
