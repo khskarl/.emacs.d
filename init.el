@@ -24,9 +24,11 @@
     racer 
     cider
     ac-cider
+    paredit
     lispy
     multiple-cursors
-    magit))
+    magit
+    undo-tree))
 
 (mapc #'(lambda (package)
 	  (unless (package-installed-p package)
@@ -60,6 +62,7 @@
 (setq inhibit-startup-message t)
 (global-linum-mode t)
 (ido-mode 1)
+(global-undo-tree-mode)
 
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
 (load-theme 'hc-zenburn t)
@@ -92,30 +95,31 @@
 (setq company-idle-delay 0)
 
 ;; Setup rtags
-(require 'rtags)
-(require 'company-rtags)
-(setq rtags-completions-enabled t)
-(eval-after-load 'company
-  '(add-to-list
-    'company-backends 'company-rtags))
-(setq rtags-autostart-diagnostics t)
-(rtags-enable-standard-keybindings)
+;; (require 'rtags)
+;; (require 'company-rtags)
+;; (setq rtags-completions-enabled t)
+;; (eval-after-load 'company
+;;   '(add-to-list
+;;     'company-backends 'company-rtags))
+;; (setq rtags-autostart-diagnostics t)
+;; (rtags-enable-standard-keybindings)
 
 ;; Setup flycheck
-(require 'flycheck-rtags)
+;; (require 'flycheck-rtags)
 
 ;; Integrate rtags + flycheck
-(defun my-flycheck-rtags-setup ()
-  (flycheck-select-checker 'rtags)
-  (setq-local flycheck-highlighting-mode nil) ;; RTags creates more accurate overlays.
-  (setq-local flycheck-check-syntax-automatically nil))
+;; (defun my-flycheck-rtags-setup ()
+;;   (flycheck-select-checker 'rtags)
+;;   (setq-local flycheck-highlighting-mode nil) ;; RTags creates more accurate overlays.
+;;   (setq-local flycheck-check-syntax-automatically nil))
 (add-hook 'c-mode-common-hook #'my-flycheck-rtags-setup)
 
 ;; My customized C++ Mode Hook
 (defun my-cpp-mode-hook ()
   (auto-fill-mode)
   (c-toggle-auto-hungry-state 1)
-  (flycheck-mode))
+  ;; (flycheck-mode)
+  )
 
 (add-hook 'c++-mode-hook 'my-cpp-mode-hook)
 (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
@@ -124,14 +128,13 @@
 
 
 ;; Setup Rust
-
-
 (add-hook 'rust-mode-hook
 	  (lambda ()
             (local-set-key (kbd "C-c <tab>") #'rust-format-buffer)))
 
-(setq racer-cmd "~/.cargo/bin/racer") ;; Rustup binaries PATH
-(setq racer-rust-src-path "~/SourceCodes/rust/src") ;; Rust source code PATH
+(setq company-tooltip-align-annotations t)
+;; (setq racer-cmd "~/.cargo/bin/racer") ;; Rustup binaries PATH
+;; (setq racer-rust-src-path "~/SourceCodes/rust/src") ;; Rust source code PATH
 
 
 (add-hook 'rust-mode-hook 'cargo-minor-mode)
