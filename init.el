@@ -28,7 +28,8 @@
     lispy
     multiple-cursors
     magit
-    undo-tree))
+    undo-tree
+    projectile))
 
 (mapc #'(lambda (package)
 	  (unless (package-installed-p package)
@@ -63,11 +64,20 @@
 (global-linum-mode t)
 (ido-mode 1)
 (global-undo-tree-mode)
+(projectile-mode)
+
 
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
 (load-theme 'hc-zenburn t)
 
 (global-aggressive-indent-mode 1)
+
+;; Recent files 
+(recentf-mode 1)
+(setq recentf-max-menu-items 25)
+(global-set-key "\C-x\ \C-r" 'recentf-open-files)
+
+(require 'whitespace)
 
 (require 'multiple-cursors)
 (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
